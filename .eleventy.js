@@ -1,20 +1,32 @@
-// Example use for the demo plugin:
-// {{ 'Steph' | hello | safe }}
+const generateHcard = require("./lib/generate-hcard");
 
-module.exports = (eleventyConfig, options) => {
-  // Define defaults for your plugin config
+module.exports = (eleventyConfig, options = {}) => {
   const defaults = {
-    htmlTag: "h2",
+    key: "indieWeb",
+    hCard: {},
   };
 
-  // You can create more than filters as a plugin, but here's an example
-  eleventyConfig.addFilter("hello", (name) => {
-    // Combine defaults with user defined options
-    const { htmlTag } = {
-      ...defaults,
-      ...options,
+  options = {
+    ...defaults,
+    ...options,
+    hCard: {
+      ...defaults.hCard,
+      ...options.hCard,
+    },
+  };
+
+  const { hCard } = options;
+
+  eleventyConfig.addGlobalData(defaults.key, {
+    hCard,
+  });
+
+  eleventyConfig.addShortcode("hCard", (overrides, options) => {
+    const hCardProperties = {
+      ...hCard,
+      ...overrides,
     };
 
-    return `<${htmlTag}>Hello, ${name}!</${htmlTag}>`;
+    return generateHcard(hCardProperties, options);
   });
 };
