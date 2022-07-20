@@ -1,7 +1,7 @@
 {
-  "name": "@scope/plugin-name",
-  "version": "1.0.0",
-  "description": "Description of plugin",
+  "name": "eleventy-plugin-indieweb",
+  "version": "0.0.1",
+  "description": "Eleventy shortcodes and other helpers to connect your website to the IndieWeb.",
   "homepage": "",
   "main": ".eleventy.js",
   "scripts": {
@@ -11,21 +11,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/username/repo-name.git"
+    "url": "git+https://github.com/pandu-supriyono/eleventy-plugin-indieweb"
   },
   "keywords": [
     "11ty",
     "11ty-plugin",
     "eleventy",
-    "eleventy-plugin"
+    "eleventy-plugin",
+    "indieweb"
   ],
   "author": {
-    "name": "username",
-    "url": "https://website.com"
+    "name": "supriyono.nl",
+    "url": "https://supriyono.nl"
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/username/repo-name/issues"
+    "url": "https://github.com/pandu-supriyono/eleventy-plugin-indieweb/issues"
   },
   "devDependencies": {
     "@11ty/eleventy": "^1.0.1"
