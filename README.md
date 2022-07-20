@@ -1,73 +1,69 @@
-## Eleventy Plugin Template
+## eleventy-plugin-indieweb
 
-> A starter environment for creating plugins for Eleventy (11ty).
+An [eleventy](https://www.11ty.dev/) plugin containing shortcodes and other helpers to
+generate markup necessary to connect your website to the [IndieWeb](https://indieweb.org).
 
-Fork this repo, or select "Use this template" to get started.
+## Requirements
 
-### Using this template
+- Eleventy v1.0.0 or higher
 
-This template is setup to run a single page 11ty site for testing your plugin functionality. The build files are excluded from the final plugin package via `.npmignore`.
+## Current features
 
-Your plugin functionality should live in/be exported from `.eleventy.js`. You will find a sample of creating a filter plugin in this template, including setting up a default config and merging user options.
+- h-card shortcode to generate markup containing h-cards in your template
+- globally accessible [11ty data](https://www.11ty.dev/docs/data/) to retrieve specific h-card properties
 
-**Be sure to update the `package.json` with your own details!**
+### Upcoming features
 
-### Testing your plugin
-
-You can test your functionality within this project's local 11ty build by running `npm start`, but you'll also want to test it _as a plugin_.
-
-From another local 11ty project, you can set the `require()` path relatively to your plugin's project directory, and then use it just as you would for a plugin coming from a package.
-
-Example, assuming you place all your repositories within the same parent directory:
-
-```js
-const pluginName = require("../plugin-directory");
-
-module.exports = (eleventyConfig) => {
-  eleventyConfig.addPlugin(pluginName, { optionName: 'if needed' );
-};
-```
-
-Then, run the project to test the plugin's functionality.
-
-Note that making changes in the plugin source will likely require restarting the test project.
-
-### Resources for creating an 11ty plugin
-
-- Bryan Robinson's ["Create a Plugin with 11ty"](https://www.youtube.com/watch?v=aO-NFFKjnnE) demonstration on "Learn With Jason"
-
----
-
-**The following is a boilerplate for your final plugin README**.
+- shortcodes to wrap h-entry properties throughout the markup in your posts page
 
 ## Usage
 
-Describe how to install your plugin, such as:
-
 ```bash
-npm install @scope/plugin-name
+npm install eleventy-plugin-indieweb
 ```
 
 Then, include it in your `.eleventy.js` config file:
 
 ```js
-const pluginName = require("@scope/plugin-name");
+const eleventyPluginIndieWeb = require("eleventy-plugin-indieweb");
 
 module.exports = (eleventyConfig) => {
-  eleventyConfig.addPlugin(pluginName);
+  eleventyConfig.addPlugin(eleventyPluginIndieWeb);
 };
 ```
 
 ## Config Options
 
-| Option      | Type | Default       |
-| ----------- | ---- | ------------- |
-| option name | type | default value |
+| Option       | Type       | Default       | Usage                |
+| ------------ | ---------- | ------------- | -------------------- |
+| key          | string     | "indieWeb"    | 11ty data key to access plugin-related data |
+| hCard        | object     | {}            | h-card properties to populate your h-card with |
 
-## Config Examples
+### hCard object
 
-Show examples of likely configurations.
+You can populate hCard data in the options object. The property keys are equal to those displayed in the [h-card specification](https://microformats.org/wiki/h-card#properties), but without the prefix and in pascal case.
 
-## Credits
+For example: `name` maps to `p-name` and `extendedAddress` maps to `p-extended-address`.
 
-Add credits if needed.
+There are some properties that are not yet implemented. Those are:
+
+- `p-geo`
+- `u-impp`
+- `u-sound`
+
+## Provides shortcodes
+
+### hCard(overrides: object, options: object)
+
+Returns the h-card markup based on the values supplied into your plugin config.
+You can optionally pass an overrides object to override any of these values.
+
+In the hCard options, you can pass:
+
+| Option       | Type       | Default       | Usage                |
+| ------------ | ---------- | ------------- | -------------------- |
+| class        | string     |               | additional classes to render the parent element with |
+
+## Thanks
+
+Thanks to [5t3ph](https://github.com/5t3ph) for the plugin template.
